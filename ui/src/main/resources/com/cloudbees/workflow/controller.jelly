@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
-    <st:documentation>
-        <st:attribute name="name" use="required">
-            The name of Pipeline controller to use for rendering.
-        </st:attribute>
-        <st:attribute name="fragCaption">
-            Optional fragment caption, passed through to the controller.
-        </st:attribute>
-    </st:documentation>
-    <script>var timeZone = '${it.timeZone}';</script>
-    <div class="cbwf-stage-view">
-        <div cbwf-controller="${name}" objectUrl="${rootURL}/${it.target.url}" fragCaption="${fragCaption}" />
-        <st:adjunct includes="org.jenkinsci.pipeline.stageview_adjunct"/>
-        <link rel="stylesheet" href="${resURL}/plugin/pipeline-stage-view/jsmodules/stageview.css"/>
-    </div>
+  <st:documentation>
+    <st:attribute name="name" use="required">
+      The name of Pipeline controller to use for rendering.
+    </st:attribute>
+    <st:attribute name="showExpandButton" />
+  </st:documentation>
+  <div>
+    <div id="graph"
+       data-timezone="${it.timeZone}"
+       data-show-expand-button="${showExpandButton}"
+       cbwf-controller="${name}"
+       objectUrl="${rootURL}/${it.target.url}" />
+    <script src="${rootURL}/plugin/pipeline-stage-view/js/bundles/app.js" />
+  </div>
 </j:jelly>

@@ -38,7 +38,7 @@ public class WorkflowStageViewAction implements Action {
 
     @Override
     public String getIconFileName() {
-        return "package.png";
+        return null;
     }
 
     @Extension

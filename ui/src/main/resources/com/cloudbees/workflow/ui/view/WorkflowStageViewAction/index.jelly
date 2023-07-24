@@ -25,10 +25,10 @@
   -->
 
 <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:wf="/com/cloudbees/workflow">
-    <l:layout norefresh="true">
+    <l:layout title="Stageview" type="one-column">
         <l:main-panel>
-            <wf:controller name="pipeline-staged" fragCaption="${it.target.name} - Stage View" />
-            <wf:controller name="remove-sidepanel" />
+            <h1>Stageview</h1>
+            <wf:controller name="pipeline-staged" showExpandButton="false" />
         </l:main-panel>
     </l:layout>
 </j:jelly>
