@@ -22,16 +22,16 @@
  * THE SOFTWARE.
  */
 
-var KB = 1024;
-var MB = KB * 1024;
-var GB = MB * 1024;
-var TB = GB * 1024;
+let KB = 1024;
+let MB = KB * 1024;
+let GB = MB * 1024;
+let TB = GB * 1024;
 
-var sec = 1000;
-var min = sec * 60;
-var hr  = min * 60;
-var day = hr * 24;
-var yr = day * 365;
+let sec = 1000;
+let min = sec * 60;
+let hr  = min * 60;
+let day = hr * 24;
+let yr = day * 365;
 
 exports.memory = function (amount: number) {
     if (amount > TB) {
@@ -57,19 +57,19 @@ export default function time(millis: number, numUnitsToShow?: number) {
     }
 
     function mod(timeUnit: number) {
-        var numUnits = Math.floor(millis / timeUnit);
+        let numUnits = Math.floor(millis / timeUnit);
         millis = millis % timeUnit;
         return numUnits;
     }
 
-    var years = mod(yr);
-    var days = mod(day);
-    var hours = mod(hr);
-    var minutes = mod(min);
-    var seconds = mod(sec);
+    let years = mod(yr);
+    let days = mod(day);
+    let hours = mod(hr);
+    let minutes = mod(min);
+    let seconds = mod(sec);
 
-    var numUnitsAdded = 0;
-    var formattedTime = '';
+    let numUnitsAdded = 0;
+    let formattedTime = '';
 
     function round(num: number) {
         return Math.round(num * 100) / 100;
@@ -85,11 +85,17 @@ export default function time(millis: number, numUnitsToShow?: number) {
             return;
         }
 
+        if (unit === 'ms') {
+            value = Math.round(value);
+        } else {
+            value = round(value);
+        }
+
         // add this one.
         if (formattedTime === '') {
-            formattedTime += round(value) + unit;
+            formattedTime += value + unit;
         } else {
-            formattedTime += ' ' + round(value) + unit;
+            formattedTime += ' ' + value + unit;
         }
 
         numUnitsAdded++;
