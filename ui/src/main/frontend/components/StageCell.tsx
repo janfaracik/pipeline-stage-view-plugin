@@ -1,27 +1,32 @@
 import React from "react";
 import Label from "./Label";
-import {buildStatusToClass, timely} from "./utils";
+import {buildStatusToClass} from "./utils";
 import {Stage} from "../models/Stage";
+import time from "../utils/time";
+import {Column} from "../models/Column";
 
-function StageCell({stage}: {stage: Stage}) {
+function StageCell({stage, column}: {stage: Stage, column: Column}) {
     if (!stage) {
         return (
             <button className={'psv-cell psv-cell--null'}></button>
         )
     }
 
-    const duration = stage.durationMillis - stage.pauseDurationMillis;
-    const expectedDuration = 1000;
-    let percentage = duration / expectedDuration;
+    let percentage = 100;
 
-    if (stage.status.toLowerCase() !== 'in_progress') {
-        percentage = 100;
+    if (stage.status === 'IN_PROGRESS') {
+        const duration = stage.durationMillis - stage.pauseDurationMillis;
+        const expectedDuration = column.averageDuration ?? 0;
+
+        percentage = (duration / expectedDuration) * 100;
+
+        if (percentage > 100) {
+            percentage = 95;
+        }
     }
 
     function clicky() {
         const div = document.createElement("pre")
-
-        console.log(stage.stageFlowNodes)
 
         fetch(stage.stageFlowNodes[0]._links.log.href)
             .then(response => {
@@ -39,7 +44,7 @@ function StageCell({stage}: {stage: Stage}) {
 
     return (
         <button onClick={() => clicky()} className={"psv-cell psv-cell" + buildStatusToClass(stage.status) + " psv-stage-cell"}>
-            <Label text={timely(stage.durationMillis)}></Label>
+            <Label text={time(stage.durationMillis, 2)}></Label>
             <div className={"durationboi " + (percentage !== 100 ? 'durationboi--animate' : '')} style={{width: percentage + "%"}}></div>
         </button>
     )

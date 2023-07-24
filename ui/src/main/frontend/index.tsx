@@ -7,8 +7,6 @@ import './app.scss';
 const rootElement = document.getElementById("graph");
 if (!rootElement) throw new Error("Failed to find the 'graph' element");
 
-console.log(rootElement.dataset)
-
 const shouldShowExpand = rootElement.dataset.showExpandButton!.trim() === 'true';
 
 const root = ReactDOMClient.createRoot(rootElement);

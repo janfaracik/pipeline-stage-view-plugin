@@ -29,7 +29,7 @@
     }
   }
 
-  .psv-stageview__stages {
+  &__heading {
     //th:first-of-type {
     //  text-align: right;
     //  vertical-align: bottom;
@@ -52,7 +52,6 @@
 
       p:last-of-type {
         margin-top: 4px;
-        //opacity: 0.6;
         color: var(--text-color-secondary);
         font-size: 0.66rem;
       }
@@ -76,6 +75,10 @@
       .jenkins-button, .psv-cell {
         border-radius: 0.66rem;
       }
+    }
+
+    td:not(:first-of-type):nth-of-type(odd) {
+      --opacity-modifier: 90%;
     }
 
     td:nth-of-type(2) {

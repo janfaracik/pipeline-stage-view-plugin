@@ -1,4 +1,5 @@
 interface StageThing {
+    id: string;
     name: string;
     durationMillis: number;
     status: BuildStatus;
